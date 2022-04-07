@@ -23,7 +23,7 @@ export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
   return (
     <>
       <Box sx={{height: '70vh', display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-      <Typography sx={{paddingBottom: 2}}>Enter any zip code to see the 5 day forecast</Typography>
+      <Typography variant="h6" sx={{paddingBottom: 2}}>Enter any zip code to see the 5 day forecast</Typography>
         <form
           onSubmit={handleSubmit}
           className="center"
@@ -33,11 +33,9 @@ export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
           <TextField
             name="zipcode"
             type="number"
-            id="zipcode"
             size="small"
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            color="success"
-            border
+            sx={{backgroundColor: "#FFFFFF"}}
             variant="outlined"
             value={zipCode}
             label="Zipcode"
@@ -47,7 +45,7 @@ export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
           ></TextField>
           <Button
             type="submit"
-            sx={{ marginLeft: 2, marginTop: 1 }}
+            sx={{ marginLeft: 2}}
             variant="contained"
             className="button"
           >

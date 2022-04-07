@@ -8,16 +8,13 @@ import { API_KEY } from "./config";
 import { weatherDataState, locationKeyState } from "./atoms.js";
 import Dashboard from "./components/Dashboard";
 import { getWeatherData, getLocationKey } from "./lib/api";
-import {DailyForecasts} from './dummyData'
+import { DailyForecasts } from "./dummyData";
 
 function App() {
   const [zipCode, setZipCode] = useState(null);
   // const [locationKey, setLocationKey] = useState(null)
-  const [weatherForecast, setWeatherForecast] = useState([])
-  const [dummyWeather, setDummyWeather] = useState([])
-  const [isClicked, setIsClicked] = useState(false)
-
-
+  const [weatherForecast, setWeatherForecast] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
 
   const {
     isLoading: isLocationKeyLoading,
@@ -47,18 +44,28 @@ function App() {
     }
   );
 
-
-  // setDummyWeather(DailyForecasts)
-  // if (weatherError) return <h1>Error, try again or try another zip code</h1>;
-  // if (isWeatherLoading) return <h1>Loading...</h1>;
+  useEffect(() => {
+    setWeatherForecast(weatherData)
+  },[weatherData])
 
 
   return (
     <div className="App">
       <h1>Andy's Weather App</h1>
       <br />
-      {weatherData ? <Dashboard weatherForecast={weatherForecast} setWeatherForecast={setWeatherForecast}/> : <SearchBar setIsClicked={setIsClicked} setZipCode={setZipCode} zipCode={zipCode} />}
-      {/* <Dashboard zipCode={zipCode} dummyWeather={dummyWeather}/> */}
+      {weatherData ? (
+        <Dashboard
+          zipCode={zipCode}
+          weatherForecast={weatherData}
+          setWeatherForecast={setWeatherForecast}
+        />
+      ) : (
+        <SearchBar
+          setIsClicked={setIsClicked}
+          setZipCode={setZipCode}
+          zipCode={zipCode}
+        />
+      )}
     </div>
   );
 }

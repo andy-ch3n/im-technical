@@ -10,7 +10,7 @@ export const getLocationKey = async (zipCode) => {
 
 export const getWeatherData = async (locationKey) => {
         const response = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`)
-        console.log('weatherData', response.data.DailyForecasts)
+        console.log('forecastData', response.data.DailyForecasts)
         return response.data.DailyForecasts
   }
 

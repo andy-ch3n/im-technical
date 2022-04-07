@@ -1,14 +1,20 @@
 import React from 'react'
 import DailyWeather from './DailyWeather'
 import { TextField, Typography } from "@mui/material";
+import {zipCodeState, weatherDataState } from "../atoms.js";
+import { atom, useRecoilState, useSetRecoilState } from "recoil";
 
 
 
 
-export default function Dashboard({weatherForecast, zipCode}) {
+
+export default function Dashboard() {
 
 
-  var myDate = new Date(1649253600*1000); //convert epoch to date
+  const [zipCode, setZipCode] = useRecoilState(zipCodeState)
+  const [weatherForecast, setWeatherForecast] = useRecoilState(weatherDataState)
+
+
 
   return (
     <>

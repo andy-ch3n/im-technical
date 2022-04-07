@@ -1,52 +1,20 @@
 import "./App.css";
 import SearchBar from "./components/SearchBar";
 import React, { useState, useEffect } from "react";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { API_KEY } from "./config";
-import { weatherDataState, locationKeyState } from "./atoms.js";
+import {zipCodeState } from "./atoms.js";
 import Dashboard from "./components/Dashboard";
-import { getWeatherData, getLocationKey } from "./lib/api";
 import { DailyForecasts } from "./dummyData";
 
+
 function App() {
-  const [zipCode, setZipCode] = useState(null);
-  // const [locationKey, setLocationKey] = useState(null)
-  const [weatherForecast, setWeatherForecast] = useState([]);
-  const [isClicked, setIsClicked] = useState(false);
 
-  const {
-    isLoading: isLocationKeyLoading,
-    error: locationKeyError,
-    data: locationKey,
-  } = useQuery(
-    ["locationKey", zipCode],
-    () => {
-      return getLocationKey(zipCode);
-    },
-    {
-      enabled: !!zipCode && isClicked,
-    }
-  );
+  const [zipCode, setZipCode] = useRecoilState(zipCodeState)
 
-  const {
-    isLoading: isWeatherLoading,
-    error: weatherError,
-    data: weatherData,
-  } = useQuery(
-    ["weatherData", locationKey],
-    () => {
-      return getWeatherData(locationKey);
-    },
-    {
-      enabled: !!locationKey,
-    }
-  );
 
-  useEffect(() => {
-    setWeatherForecast(weatherData)
-  },[weatherData])
 
 
   return (
@@ -54,17 +22,12 @@ function App() {
       <h1>Andy's Weather App</h1>
       <br/>
       {weatherData ? (
+      <br/>
+      {zipCode ? (
         <Dashboard
-          zipCode={zipCode}
-          weatherForecast={weatherData}
-          setWeatherForecast={setWeatherForecast}
         />
       ) : (
-        <SearchBar
-          setIsClicked={setIsClicked}
-          setZipCode={setZipCode}
-          zipCode={zipCode}
-        />
+        <SearchBar/>
       )}
     </div>
   );

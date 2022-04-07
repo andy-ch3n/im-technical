@@ -52,7 +52,7 @@ function App() {
   return (
     <div className="App">
       <h1>Andy's Weather App</h1>
-      <br />
+      <br/>
       {weatherData ? (
         <Dashboard
           zipCode={zipCode}

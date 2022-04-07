@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField, Typography } from "@mui/material";
-import Location from "@mui/icons-material/LocationSearching";
-import axios from "axios";
-import API_KEY from "../config.js";
 import { zipCodeState, locationKeyState, weatherDataState } from "../atoms";
 import { atom, useRecoilState, useSetRecoilState } from "recoil";
 
-export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
+export default function SearchBar({ zipCode, setZipCode, setIsClicked }) {
   // const [zipCode, setZipCode] = useRecoilState(zipCodeState);
   // const locationKey = useRecoilState(locationKeyState);
   // const weatherData = useRecoilState(weatherDataState);
@@ -17,13 +14,23 @@ export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsClicked(true)
+    setIsClicked(true);
   }
 
   return (
     <>
-      <Box sx={{height: '70vh', display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-      <Typography variant="h6" sx={{paddingBottom: 2}}>Enter any zip code to see the 5 day forecast</Typography>
+      <Box
+        sx={{
+          height: "70vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h6" sx={{ paddingBottom: 2 }}>
+          Enter any zip code to see the 5 day forecast
+        </Typography>
         <form
           onSubmit={handleSubmit}
           className="center"
@@ -34,8 +41,8 @@ export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
             name="zipcode"
             type="number"
             size="small"
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-            sx={{backgroundColor: "#FFFFFF"}}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            sx={{ backgroundColor: "#FFFFFF" }}
             variant="outlined"
             value={zipCode}
             label="Zipcode"
@@ -45,7 +52,7 @@ export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
           ></TextField>
           <Button
             type="submit"
-            sx={{ marginLeft: 2}}
+            sx={{ marginLeft: 2 }}
             variant="contained"
             className="button"
           >

@@ -1,12 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import CloudIcon from "@mui/icons-material/Cloud";
-import InvertColorsIcon from "@mui/icons-material/InvertColors";
 
 export default function DailyWeather({
   precipitation,
@@ -18,7 +16,6 @@ export default function DailyWeather({
   const convertDate = (date) => {
     var myDate = new Date(date * 1000); //convert epoch to date
     return myDate.toLocaleString();
-    myDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
   let convertedDate = convertDate(date);
@@ -45,7 +42,7 @@ export default function DailyWeather({
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography sx={{ paddingRight: 2 }}>
-              <Avatar colorDefault="black">
+              <Avatar>
                 {monthDate[0]}/{monthDate[1]}
               </Avatar>
             </Typography>
@@ -63,11 +60,11 @@ export default function DailyWeather({
             {iconPhrase.toLowerCase().includes("cloud") ? <CloudIcon /> : ""}
           </Typography>
           <Typography>{iconPhrase}</Typography>
-          <Typography sx={{}}>
+          <Typography>
             {precipitation ? (
               <>There's a chance of rain</>
             ) : (
-              <p>0% chance of rain</p>
+              <>0% chance of rain</>
             )}
           </Typography>
         </Box>

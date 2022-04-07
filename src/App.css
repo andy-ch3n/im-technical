@@ -13,6 +13,12 @@
   }
 }
 
+body {
+  background-image: url("./Assets/background.jpeg");
+  background-repeat:no-repeat;
+  background-size: cover;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

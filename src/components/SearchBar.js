@@ -1,24 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField, Typography } from "@mui/material";
 import Location from "@mui/icons-material/LocationSearching";
 import axios from "axios";
 import API_KEY from "../config.js";
-import { zipCodeState, locationKeyState, weatherDataState } from "../atoms";
+import { isClickedState, zipCodeState, weatherDataState } from "../atoms";
+import { useQuery } from "react-query";
 import { atom, useRecoilState, useSetRecoilState } from "recoil";
+import { getWeatherData, getLocationKey } from "../lib/api";
 
-export default function SearchBar({zipCode, setZipCode, setIsClicked}) {
-  // const [zipCode, setZipCode] = useRecoilState(zipCodeState);
-  // const locationKey = useRecoilState(locationKeyState);
-  // const weatherData = useRecoilState(weatherDataState);
 
-  // const setLocationKey = useSetRecoilState(locationKeyState);
-  // const setWeather = useSetRecoilState(weatherDataState);
 
-  function handleSubmit(e) {
+
+export default function SearchBar() {
+
+  const [zipCode, setZipCode] = useRecoilState(zipCodeState)
+  const [isClicked, setIsClicked] = useRecoilState(isClickedState)
+  const [weatherData, setWeatherData] = useRecoilState(weatherDataState);
+
+
+
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsClicked(true)
   }
+
+
+  const {
+    isLoading: isLocationKeyLoading,
+    error: locationKeyError,
+    data: locationKey,
+  } = useQuery(
+    ["locationKey", zipCode],
+    () => {
+      return getLocationKey(zipCode);
+    },
+    {
+      enabled: !!zipCode && isClicked,
+    }
+  );
+
+  const {
+    isLoading: isWeatherLoading,
+    error: weatherError,
+    data: forecastData,
+  } = useQuery(
+    ["weatherData", locationKey],
+    () => {
+      return getWeatherData(locationKey);
+    },
+    {
+      enabled: !!locationKey,
+    }
+  );
+
+  useEffect(() => {
+    setWeatherData(forecastData)
+  },[weatherData])
+
+
+
 
   return (
     <>

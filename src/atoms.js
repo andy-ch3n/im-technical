@@ -6,16 +6,15 @@ import { atom, useRecoilState } from "recoil";
   default: "",
 });
 
- const locationKeyState = atom({
-  key: "locationKey",
-  default: "",
-});
-
  const weatherDataState = atom({
   key: "weatherData",
   default: [],
 });
 
+const isClickedState = atom({
+  key: "isClicked",
+  default: false,
+});
 
 
-export {zipCodeState, locationKeyState, weatherDataState}
+export {zipCodeState, weatherDataState, isClickedState}
